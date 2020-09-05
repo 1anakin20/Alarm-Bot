@@ -6,7 +6,8 @@
 # Maven
 /target
 
-# The token should never be in source control
-user/token
+# The configuration should never be in source control
+user/configuration
+user/alarms.json
 
 !.gitkeep
