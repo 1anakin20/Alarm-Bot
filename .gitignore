@@ -7,4 +7,6 @@
 /target
 
 # The token should never be in source control
-token
+user/token
+
+!.gitkeep
