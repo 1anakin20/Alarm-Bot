@@ -29,6 +29,7 @@ public class Main {
 			config = Files.readAllLines(Paths.get("user/configuration"));
 		} catch (IOException e) {
 			System.out.println("No file named 'configuration' inside the user folder found");
+			System.exit(1);
 		}
 
 		if (config.size() != 2) {
@@ -61,6 +62,6 @@ public class Main {
 		}
 
 		// Get the alarm clock running
-		ClassAlarm.ClassAlarm();
+		Clock.getInstance().setJda(jda);
 	}
 }
