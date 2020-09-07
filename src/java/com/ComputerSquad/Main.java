@@ -57,6 +57,8 @@ public class Main {
 		}
 
 		// Get the alarm clock running
-		Clock.getInstance().setJda(jda);
+		Clock clock = Clock.getInstance();
+		clock.setJda(jda);
+		clock.setChannelName(config.get(2));
 	}
 }

@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class Clock {
 	private static Clock instance = null;
 	private JDA jda;
+	private String channelName = "";
 
 	private boolean isOn = true;
 
@@ -26,7 +27,7 @@ public class Clock {
 				Calendar calendar = Calendar.getInstance();
 //				calendar.get(Calendar.DAY_OF_WEEK)
 				if (jda != null) {
-					TextChannel textChannel = jda.getTextChannelsByName("bot-test",true).get(0);
+					TextChannel textChannel = jda.getTextChannelsByName(channelName,true).get(0);
 					textChannel.sendMessage("@everyone").queue();
 					System.out.println("Should ping");
 				}
@@ -58,5 +59,9 @@ public class Clock {
 
 	public void setJda(JDA jda) {
 		this.jda = jda;
+	}
+
+	public void setChannelName(String channelName) {
+		this.channelName = channelName;
 	}
 }
