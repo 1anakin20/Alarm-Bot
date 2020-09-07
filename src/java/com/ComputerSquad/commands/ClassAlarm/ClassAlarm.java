@@ -63,16 +63,16 @@ public class ClassAlarm extends Command {
 		}
 
 		// Check if the format is correct "week day:HH:MM"
-		Pattern pattern = Pattern.compile("\\d:\\d\\d:\\d\\d");
+		Pattern pattern = Pattern.compile("[a-zA-Z]+:\\d\\d:\\d\\d");
 		Matcher matcher = pattern.matcher(args[0]);
 		if (!matcher.matches()) {
-			return "The first argument is incorrect. It should be: 'week day':hour:Minutes\n" +
-					"Note: Week day is a number; hour is double digits in 24 hours format; Minutes is double digits\n" +
+			return "The first argument is incorrect. It should be: week day:hour:Minutes\n" +
+					"Note: Week day is a string; hour is double digits in 24 hours format; Minutes is double digits\n" +
 					"Example: 3:17:00";
 		}
 
 		JSONAlarms jsonAlarms = new JSONAlarms();
-		jsonAlarms.saveAlarm(args[0], args[1]);
+		jsonAlarms.saveAlarm(args[0].toLowerCase(), args[1]);
 		return "Alarm saved";
 	}
 
