@@ -1,9 +1,11 @@
 package com.ComputerSquad.commands.ClassAlarm;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
@@ -11,12 +13,7 @@ import java.util.Map;
 
 public class JSONAlarms {
 	private final String alarmPath = "user/alarms.json";
-	private Gson gson = new Gson();
-
-	public void saveDate(int weekDay, int hour, int minutes, String className) {
-		String date = weekDay + ":" + hour + ":" + minutes;
-		jsonObject.put(date, className);
-	}
+	private Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public Map<String, String> readJSON() {
 		try (Reader reader = new FileReader(alarmPath)) {
@@ -27,7 +24,18 @@ public class JSONAlarms {
 		return null;
 	}
 
-	public void writeToFile() {
-		// TODO updates the hours if changed
+
+	public void saveAlarm(String date, String className) {
+		Map<String, String> json = readJSON();
+		json.put(date, className);
+		writeToFile(json);
+	}
+
+	public void writeToFile(Map<String, String> dict) {
+		try (FileWriter writer = new FileWriter(alarmPath)) {
+			gson.toJson(dict, writer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
