@@ -1,51 +1,30 @@
 package com.ComputerSquad.commands.ClassAlarm;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JSONAlarms {
 	private final String alarmPath = "user/alarms.json";
-	private final JSONObject jsonObject = new JSONObject();
+	private Gson gson = new Gson();
 
 	public void saveDate(int weekDay, int hour, int minutes, String className) {
 		String date = weekDay + ":" + hour + ":" + minutes;
 		jsonObject.put(date, className);
 	}
 
-	public void readJSON() {
-		JSONParser parser = new JSONParser();
-		String alarmJson = null;
-		try {
-			Files.lines(Paths.get(alarmPath), StandardCharsets.UTF_8);
+	public Map<String, String> readJSON() {
+		try (Reader reader = new FileReader(alarmPath)) {
+			return gson.fromJson(reader, new TypeToken<HashMap<String, String>>() {}.getType());
 		} catch (IOException e) {
-			System.out.println("The alarm settings file couldn't be found");
-			return;
-		}
-
-		Object obj = null;
-		try {
-			obj = parser.parse(alarmJson);
-		} catch (ParseException e) {
-			System.out.println("The file is not a valid format");
-		} catch (NullPointerException e) {
 			e.printStackTrace();
-			return;
 		}
-
-		JSONArray jsonArray = new JSONArray();
-		jsonArray.add(obj);
-
-
-		// TODO Parse the hours
-		System.out.println(jsonArray.get(0));
-
+		return null;
 	}
 
 	public void writeToFile() {
