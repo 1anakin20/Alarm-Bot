@@ -21,11 +21,6 @@ public class ClassAlarm extends Command {
 			commandEvent.replyWarning("There is no arguments");
 		} else {
 			String[] args = commandEvent.getArgs().split("\\s+");
-			if (args.length > 1) {
-				// Show help commands
-				commandEvent.reply("Too many arguments");
-				return;
-			}
 			switch (args[0]) {
 				case "on":
 					setOn(true);
