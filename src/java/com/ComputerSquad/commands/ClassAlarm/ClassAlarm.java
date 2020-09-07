@@ -3,6 +3,8 @@ package com.ComputerSquad.commands.ClassAlarm;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import java.util.Map;
+
 public class ClassAlarm extends Command {
 	private final Clock clock;
 	public ClassAlarm() {
@@ -34,13 +36,26 @@ public class ClassAlarm extends Command {
 					commandEvent.reply("Alarm has been turned off");
 					break;
 				case "times":
-					new JSONAlarms().readJSON();
+					commandEvent.reply(alarmTimes());
 					break;
 				default:
 					// Argument not found
 					commandEvent.reply("Argument doesn't exist");
 			}
 		}
+	}
+
+	private String alarmTimes() {
+		JSONAlarms jsonAlarms = new JSONAlarms();
+		Map<String, String> map = jsonAlarms.readJSON();
+//		StringBuilder stringBuilder = new StringBuilder();
+		String formatted = "";
+		for(String key : map.keySet()) {
+			formatted = key + " -> " + map.get(key) + "\n";
+		}
+
+
+		return "Week day:Hour:Minutes -> 'Class name'\n" + formatted;
 	}
 
 	private void setOn(boolean isOn) {
