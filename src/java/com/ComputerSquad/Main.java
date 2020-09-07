@@ -32,11 +32,6 @@ public class Main {
 			System.exit(1);
 		}
 
-		if (config.size() != 2) {
-			System.out.println("The configuration file is incorrect");
-			System.exit(1);
-		}
-
 		EventWaiter eventWaiter = new EventWaiter();
 
 		CommandClientBuilder client = new CommandClientBuilder()
