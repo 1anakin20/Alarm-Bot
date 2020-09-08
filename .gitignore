@@ -7,7 +7,7 @@
 /target
 
 # The configuration should never be in source control
-user/configuration
-user/alarms.json
+src/java/ressources/user/configuration
+src/java/ressources/user/alarms.json
 
 !.gitkeep

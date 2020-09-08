@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -32,6 +33,11 @@ public class Main {
 			System.exit(1);
 		}
 
+		InputStream is = Main.class.getClassLoader().getResourceAsStream("configuration");
+
+		// Heroku config vars
+		String token = System.getenv("TOKEN");
+
 		EventWaiter eventWaiter = new EventWaiter();
 
 		CommandClientBuilder client = new CommandClientBuilder()
@@ -46,7 +52,7 @@ public class Main {
 
 		JDA jda = null;
 		try {
-			jda = JDABuilder.createDefault(config.get(0)).build();
+			jda = JDABuilder.createDefault(token).build();
 			jda.addEventListener(eventWaiter, client.build());
 			jda.awaitReady();
 		} catch (LoginException e) {
