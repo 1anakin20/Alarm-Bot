@@ -5,6 +5,7 @@
 
 # Maven
 /target
+dependency-reduced-pom.xml
 
 # The configuration should never be in source control
 user/configuration
