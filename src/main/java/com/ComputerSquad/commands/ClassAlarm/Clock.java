@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
