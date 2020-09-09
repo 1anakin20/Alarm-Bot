@@ -10,10 +10,8 @@ import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class Main {
@@ -34,12 +32,6 @@ public class Main {
 			System.exit(1);
 		}
 
-//		InputStream is = Main.class.getClassLoader().getResourceAsStream("configuration");
-//		System.out.println(is);
-
-		// Heroku config vars
-		String token = System.getenv("TOKEN");
-
 		EventWaiter eventWaiter = new EventWaiter();
 
 		CommandClientBuilder client = new CommandClientBuilder()
@@ -54,7 +46,7 @@ public class Main {
 
 		JDA jda = null;
 		try {
-			jda = JDABuilder.createDefault(token).build();
+			jda = JDABuilder.createDefault(config.get(0)).build();
 			jda.addEventListener(eventWaiter, client.build());
 			jda.awaitReady();
 		} catch (LoginException e) {
@@ -67,6 +59,6 @@ public class Main {
 		// Get the alarm clock running
 		Clock clock = Clock.getInstance();
 		clock.setJda(jda);
-		clock.setChannelName(config.get(1));
+		clock.setChannelName(config.get(2));
 	}
 }
