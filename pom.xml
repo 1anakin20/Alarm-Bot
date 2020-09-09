@@ -43,15 +43,16 @@
 			<version>4.2.0_204</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-shade-plugin</artifactId>
-			<version>3.2.4</version>
-			<type>maven-plugin</type>
+			<groupId>com.jagrosh</groupId>
+			<!-- Notice that the dependency notation ends with "-command" -->
+			<artifactId>jda-utilities-command</artifactId>
+			<version>3.0.4</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.jagrosh</groupId>
 			<!-- Notice that the dependency notation ends with "-command" -->
-			<artifactId>jda-utilities-command</artifactId>
+			<artifactId>jda-utilities-commons</artifactId>
 			<version>3.0.4</version>
 			<scope>compile</scope>
 		</dependency>
@@ -141,19 +142,19 @@
 				<artifactId>maven-shade-plugin</artifactId>
 				<version>3.2.4</version>
 				<executions>
-					<!-- Run shade goal on package phase -->
+				<!-- Run shade goal on package phase -->
 					<execution>
 						<phase>package</phase>
 						<goals>
 							<goal>shade</goal>
-						</goals>
+					</goals>
 						<configuration>
 							<transformers>
 								<!-- add Main-Class to manifest file -->
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
 									<mainClass>com.ComputerSquad.Main</mainClass>
 								</transformer>
-							</transformers>
+						</transformers>
 						</configuration>
 					</execution>
 				</executions>
