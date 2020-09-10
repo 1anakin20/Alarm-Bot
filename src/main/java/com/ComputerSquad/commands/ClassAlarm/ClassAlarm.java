@@ -26,18 +26,27 @@ public class ClassAlarm extends Command {
 			String[] args = commandEvent.getArgs().split("\\s+");
 			switch (args[0]) {
 				case "on":
-					setOn(true);
-					commandEvent.reply("Alarm has been turned on");
+//					setOn(true);
+//					commandEvent.reply("Alarm has been turned on");
+					commandEvent.reply("Not available at the moment");
 					break;
 				case "off":
-					setOn(false);
-					commandEvent.reply("Alarm has been turned off");
+//					setOn(false);
+//					commandEvent.reply("Alarm has been turned off");
+					commandEvent.reply("Not available at the moment");
 					break;
 				case "times":
 					commandEvent.reply(alarmTimes());
 					break;
 				case "new":
 					commandEvent.reply(setAlarm(Arrays.copyOfRange(args, 1, args.length)));
+					break;
+				case "remove":
+					commandEvent.reply(removeAlarm(Arrays.copyOfRange(args, 1, args.length)));
+					break;
+				case "status":
+					// Check if alarm is on or off
+					commandEvent.reply(alarmStatus());
 					break;
 				default:
 					// Argument not found
@@ -47,14 +56,15 @@ public class ClassAlarm extends Command {
 	}
 
 	private String alarmTimes() {
-		JSONAlarms jsonAlarms = new JSONAlarms();
-		Map<String, String> map = jsonAlarms.readJSON();
-		String formatted = "";
-		for(String key : map.keySet()) {
-			formatted = key + " -> " + map.get(key) + "\n";
+		Map<String, String> alarms = Clock.getInstance().getAlarms();
+		if (alarms.isEmpty()) {
+			return "No alarms";
 		}
-
-		return "Week day:Hour:Minutes -> 'Class name'\n" + formatted;
+		StringBuilder formatted = new StringBuilder();
+		for(Map.Entry<String, String> entry : alarms.entrySet()) {
+			formatted.append(entry.getValue() + " -> " + entry.getKey() + "\n");
+		}
+		return formatted.toString();
 	}
 
 	private String setAlarm(String[] args) {
@@ -68,12 +78,42 @@ public class ClassAlarm extends Command {
 		if (!matcher.matches()) {
 			return "The first argument is incorrect. It should be: week day:hour:Minutes\n" +
 					"Note: Week day is a string; hour is double digits in 24 hours format; Minutes is double digits\n" +
-					"Example: 3:17:00";
+					"Example: friday:17:00";
+		}
+		// Each component is between ':'
+		String[] components = args[0].split(":");
+
+//		JSONAlarms jsonAlarms = new JSONAlarms();
+//		jsonAlarms.saveAlarm(args[0].toLowerCase(), args[1]);
+		Clock clock = Clock.getInstance();
+		try {
+			clock.newAlarm(components[0], Integer.parseInt(components[1]), Integer.parseInt(components[2]), args[1]);
+		} catch (IllegalArgumentException e) {
+			return "There is something wrong with your date. Check for spelling mistakes,\n" +
+					"full day name,\n" +
+					"another alarm doesn't have the same name";
 		}
 
-		JSONAlarms jsonAlarms = new JSONAlarms();
-		jsonAlarms.saveAlarm(args[0].toLowerCase(), args[1]);
+		System.out.println(clock.getAlarms());
 		return "Alarm saved";
+	}
+
+	private String removeAlarm(String[] args) {
+		if (args.length != 1) {
+			return "There should be only 1 argument";
+		}
+
+		try {
+			Clock.getInstance().removeAlarm(args[0]);
+		} catch (IllegalArgumentException e) {
+			return "Alarm name doesn't exist";
+		}
+
+		return "Alarm removed";
+	}
+
+	private String alarmStatus() {
+		return (Clock.getInstance().isOn()) ? "Alarm is on" : "Alarm is off";
 	}
 
 	private void setOn(boolean isOn) {
