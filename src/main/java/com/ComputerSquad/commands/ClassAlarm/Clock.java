@@ -1,19 +1,19 @@
 package com.ComputerSquad.commands.ClassAlarm;
 
+import com.coreoz.wisp.Scheduler;
+import com.coreoz.wisp.schedule.cron.CronSchedule;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Clock {
 	private static Clock instance = null;
 	private JDA jda;
 	private String channelName = "";
+	private Scheduler scheduler = new Scheduler();
+	private Map<String, String> alarms = new HashMap<>();
 
 	private boolean isOn = true;
 
@@ -21,36 +21,37 @@ public class Clock {
 	 * Singleton class for the Class Alarm
 	 */
 	private Clock() {
-		JSONAlarms jsonAlarms = new JSONAlarms();
-		// Check each minute if it's time for class or not
-		Runnable runnable = () -> {
-			// Check if it's class time if the alarm is on
-			if(isOn) {
-				if (jda != null) {
-					// Get current time
-					LocalDate currentDate = LocalDate.now();
-					LocalTime currentTime = LocalTime.now();
+	}
 
-					String dayOfWeek = String.valueOf(currentDate.getDayOfWeek()).toLowerCase();
-					int hour = currentTime.getHour();
-					int minutes = currentTime.getMinute();
-
-					String matchingKey = dayOfWeek + ":" + hour + ":" + minutes;
-
-					Map<String, String> alarms = jsonAlarms.readJSON();
-
-					// Check if one matches the current time
-					if (alarms.containsKey(matchingKey)) {
-						TextChannel textChannel = jda.getTextChannelsByName(channelName,true).get(0);
-						textChannel.sendMessage("@everyone " + alarms.get(matchingKey)).queue();
-						System.out.println("Should ping");
-					}
-				}
-			}
+	public void newAlarm(String weekDay, int hour, int minutes, String className) {
+		Runnable ping = () -> {
+			System.out.println();
+			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
+			textChannel.sendMessage("@everyone " + className).queue();
+			System.out.println("Should ping " + className);
 		};
 
-		ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-		scheduler.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.MINUTES);
+		String cronExpression = CronHelper.CronQuartzExpressionCreator(weekDay, hour, minutes);
+		scheduler.schedule(
+				className,
+				ping,
+				CronSchedule.parseQuartzCron(cronExpression));
+
+		// Human readable date to keep track of the current alarms
+		// Integer with a leading 0 will be remove
+		String minutesString = "";
+		if (minutes <= 9) {
+			minutesString = "0" + minutes;
+		} else {
+			minutesString = String.valueOf(minutes);
+		}
+		String date = weekDay + " at " + hour + ":" + minutesString;
+		alarms.put(className, date);
+	}
+
+	public void removeAlarm(String className) throws IllegalArgumentException {
+		scheduler.cancel(className);
+		alarms.remove(className);
 	}
 
 	/** Get's the the ClassAlarm instance
@@ -70,6 +71,7 @@ public class Clock {
 
 	public void setOn(boolean on) {
 		isOn = on;
+		// TODO shutdown the scheduler if set to off, if turned back on again reload everything from the JSON file
 	}
 
 	public void setJda(JDA jda) {
@@ -78,5 +80,9 @@ public class Clock {
 
 	public void setChannelName(String channelName) {
 		this.channelName = channelName;
+	}
+
+	public Map<String, String> getAlarms() {
+		return alarms;
 	}
 }
