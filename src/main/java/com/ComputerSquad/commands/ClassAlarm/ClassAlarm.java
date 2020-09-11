@@ -62,7 +62,7 @@ public class ClassAlarm extends Command {
 		}
 		StringBuilder formatted = new StringBuilder();
 		for(Map.Entry<String, String> entry : alarms.entrySet()) {
-			formatted.append(entry.getValue() + " -> " + entry.getKey() + "\n");
+			formatted.append(entry.getValue()).append(" -> ").append(entry.getKey()).append("\n");
 		}
 		return formatted.toString();
 	}
@@ -89,12 +89,12 @@ public class ClassAlarm extends Command {
 		try {
 			clock.newAlarm(components[0], Integer.parseInt(components[1]), Integer.parseInt(components[2]), args[1]);
 		} catch (IllegalArgumentException e) {
-			return "There is something wrong with your date. Check for spelling mistakes,\n" +
+			return "There is something wrong with your date.\n" +
+					"Check for spelling mistakes,\n" +
 					"full day name,\n" +
 					"another alarm doesn't have the same name";
 		}
 
-		System.out.println(clock.getAlarms());
 		return "Alarm saved";
 	}
 
