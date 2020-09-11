@@ -28,24 +28,22 @@ public class Clock {
 			System.out.println();
 			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
 			textChannel.sendMessage("@everyone " + className).queue();
-			System.out.println("Should ping " + className);
 		};
 
 		String cronExpression = CronHelper.CronQuartzExpressionCreator(weekDay, hour, minutes);
-		scheduler.schedule(
-				className,
-				ping,
-				CronSchedule.parseQuartzCron(cronExpression));
+		scheduler.schedule(className, ping, CronSchedule.parseQuartzCron(cronExpression));
 
 		// Human readable date to keep track of the current alarms
 		// Integer with a leading 0 will be remove
-		String minutesString = "";
+		String minutesString;
 		if (minutes <= 9) {
 			minutesString = "0" + minutes;
 		} else {
 			minutesString = String.valueOf(minutes);
 		}
-		String date = weekDay + " at " + hour + ":" + minutesString;
+		String formattedWeekDay;
+		formattedWeekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
+		String date = formattedWeekDay + " at " + hour + ":" + minutesString;
 		alarms.put(className, date);
 	}
 
