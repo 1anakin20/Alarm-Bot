@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 
 import javax.security.auth.login.LoginException;
+import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,7 +24,7 @@ public class Main {
 		  The configuration file should be inside a folder called "user"
 		  With a new line for each piece of information needed
 		  Order:
-		  Bot token
+		  Bot token; you can also write runtime to be asked for it when running the bot
 		  ID of the owner of the bot
 		 */
 		List<String> config = null;
@@ -32,6 +33,21 @@ public class Main {
 		} catch (IOException e) {
 			System.out.println("No file named 'configuration' inside the user folder found");
 			System.exit(1);
+		}
+
+		String botToken;
+		if (config.get(0).equals("runtime")) {
+			Console console = System.console();
+
+			if(console == null) {
+				System.out.println("No console available");
+				System.exit(0);
+			}
+
+			System.out.print("Enter bot token: ");
+			botToken = String.valueOf(console.readPassword());
+		} else {
+			botToken = config.get(0);
 		}
 
 		EventWaiter eventWaiter = new EventWaiter();
@@ -48,7 +64,7 @@ public class Main {
 
 		JDA jda = null;
 		try {
-			jda = JDABuilder.createDefault(config.get(0)).build();
+			jda = JDABuilder.createDefault(botToken).build();
 			jda.addEventListener(eventWaiter, client.build());
 			jda.awaitReady();
 		} catch (LoginException e) {
