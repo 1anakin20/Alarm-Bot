@@ -36,8 +36,11 @@ public class Main {
 			System.out.println("No file named 'configuration' inside the user folder found");
 			System.exit(1);
 		}
-
+		// Config file
 		String botToken;
+		String roleID;
+
+		// Bot Token
 		if (config.get(0).equals("runtime")) {
 			Console console = System.console();
 
@@ -51,6 +54,13 @@ public class Main {
 		} else {
 			botToken = config.get(0);
 		}
+
+		try {
+			roleID = config.get(3);
+		} catch (IndexOutOfBoundsException e) {
+			roleID = "";
+		}
+
 
 		EventWaiter eventWaiter = new EventWaiter();
 
@@ -69,7 +79,7 @@ public class Main {
 			jda = JDABuilder.createDefault(botToken)
 					.enableIntents(GatewayIntent.GUILD_MEMBERS)
 					.build();
-			jda.addEventListener(eventWaiter, client.build(), new UserEvents());
+			jda.addEventListener(eventWaiter, client.build(), new UserEvents(roleID));
 			jda.awaitReady();
 		} catch (LoginException e) {
 			System.out.println("Error, couldn't login. Please verify the token");

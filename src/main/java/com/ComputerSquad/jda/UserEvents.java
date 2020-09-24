@@ -9,17 +9,21 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
 public class UserEvents extends ListenerAdapter {
+	private String roleID;
+	public UserEvents(String roleID) {
+		this.roleID = roleID;
+	}
+
 	@Override
 	public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
 		// Automatically add a role when an user joins
 		Member member = event.getMember();
 		JDA jda = event.getJDA();
-		// Roles
-		Role role = event.getGuild().getRoleById("751121572105814139");
-		assert role != null;
-		event.getGuild().addRoleToMember(member, role).queue();
-		// Greeting
-		TextChannel textChannel = jda.getTextChannelsByName("bot-commands", true).get(0);
-		textChannel.sendMessage("Welcome " + member.getEffectiveName()).queue();
+		if (!roleID.isEmpty()) {
+			// Roles
+			Role role = event.getGuild().getRoleById(roleID);
+			assert role != null;
+			event.getGuild().addRoleToMember(member, role).queue();
+		}
 	}
 }
