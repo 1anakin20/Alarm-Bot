@@ -3,10 +3,12 @@ package com.ComputerSquad;
 import com.ComputerSquad.commands.ClassAlarm.ClassAlarm;
 import com.ComputerSquad.commands.ClassAlarm.Clock;
 import com.ComputerSquad.commands.fun.hello.SayHello;
+import com.ComputerSquad.jda.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
 import java.io.Console;
@@ -64,8 +66,10 @@ public class Main {
 
 		JDA jda = null;
 		try {
-			jda = JDABuilder.createDefault(botToken).build();
-			jda.addEventListener(eventWaiter, client.build());
+			jda = JDABuilder.createDefault(botToken)
+					.enableIntents(GatewayIntent.GUILD_MEMBERS)
+					.build();
+			jda.addEventListener(eventWaiter, client.build(), new UserEvents());
 			jda.awaitReady();
 		} catch (LoginException e) {
 			System.out.println("Error, couldn't login. Please verify the token");
