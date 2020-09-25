@@ -6,6 +6,9 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * User events Events triggered by {@link ListenerAdapter}
+ */
 public class UserEvents extends ListenerAdapter {
 	private String roleID;
 	public UserEvents(String roleID) {
