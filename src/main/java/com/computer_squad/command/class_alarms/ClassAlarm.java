@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
  * You can set alarms to ping everyone at a certain time of a day every week.
  * Command: ++alarm
  * Requires at least 1 argument.
+ * <pre>
  * Arguments:
  * 		on, off: Not available at the moment
  * 		times: Shows list of the alarms set
@@ -20,6 +21,7 @@ import java.util.regex.Pattern;
  * 		remove: Removes an alarm
  * 			required arguments: alarmName
  * 		status: Shows if the alarm is on or off
+ * 	</pre>
  */
 public class ClassAlarm extends Command {
 	private final Clock clock;
