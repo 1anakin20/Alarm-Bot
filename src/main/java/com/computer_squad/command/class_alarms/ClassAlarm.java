@@ -68,6 +68,9 @@ public class ClassAlarm extends Command {
 		}
 	}
 
+	/** Shows a list of the alarms
+	 * @return Reply
+	 */
 	private String alarmTimes() {
 		Map<String, String> alarms = Clock.getInstance().getAlarms();
 		if (alarms.isEmpty()) {
@@ -80,6 +83,10 @@ public class ClassAlarm extends Command {
 		return formatted.toString();
 	}
 
+	/** Set ups a new alarm
+	 * @param args Command arguments
+	 * @return Reply
+	 */
 	private String setAlarm(String[] args) {
 		if(args.length != 2) {
 			return "There should be 2 arguments";
@@ -111,6 +118,10 @@ public class ClassAlarm extends Command {
 		return "Alarm saved";
 	}
 
+	/** Removes the desired alarm
+	 * @param args Command arguments
+	 * @return Reply
+	 */
 	private String removeAlarm(String[] args) {
 		if (args.length != 1) {
 			return "There should be only 1 argument";
@@ -125,10 +136,14 @@ public class ClassAlarm extends Command {
 		return "Alarm removed";
 	}
 
+	/** Shows if the alarm is on or off
+	 * @return Reply
+	 */
 	private String alarmStatus() {
 		return (Clock.getInstance().isOn()) ? "Alarm is on" : "Alarm is off";
 	}
 
+	// Getters and setters
 	private void setOn(boolean isOn) {
 		clock.setOn(isOn);
 	}
