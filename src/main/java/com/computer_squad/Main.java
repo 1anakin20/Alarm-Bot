@@ -1,9 +1,9 @@
-package com.ComputerSquad;
+package com.computer_squad;
 
-import com.ComputerSquad.commands.ClassAlarm.ClassAlarm;
-import com.ComputerSquad.commands.ClassAlarm.Clock;
-import com.ComputerSquad.commands.fun.hello.SayHello;
-import com.ComputerSquad.jda.UserEvents;
+import com.computer_squad.command.class_alarms.ClassAlarm;
+import com.computer_squad.command.class_alarms.Clock;
+import com.computer_squad.command.fun.hello.SayHello;
+import com.computer_squad.services.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.JDA;

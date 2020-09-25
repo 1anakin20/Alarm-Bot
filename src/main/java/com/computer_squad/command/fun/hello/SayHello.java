@@ -1,4 +1,4 @@
-package com.ComputerSquad.commands.fun.hello;
+package com.computer_squad.command.fun.hello;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;

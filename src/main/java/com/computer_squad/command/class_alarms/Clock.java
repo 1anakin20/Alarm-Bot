@@ -1,4 +1,4 @@
-package com.ComputerSquad.commands.ClassAlarm;
+package com.computer_squad.command.class_alarms;
 
 import com.coreoz.wisp.Scheduler;
 import com.coreoz.wisp.schedule.cron.CronSchedule;
@@ -52,8 +52,8 @@ public class Clock {
 		alarms.remove(className);
 	}
 
-	/** Get's the the ClassAlarm instance
-	 * @return A classAlarm instance
+	/** Get's the the Clock instance
+	 * @return A Clock instance
 	 */
 	public static Clock getInstance() {
 		if(instance == null) {

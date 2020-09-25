@@ -1,4 +1,4 @@
-package com.ComputerSquad.commands.ClassAlarm;
+package com.computer_squad.command.class_alarms;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
