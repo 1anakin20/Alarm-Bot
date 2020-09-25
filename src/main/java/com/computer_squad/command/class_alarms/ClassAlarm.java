@@ -8,6 +8,19 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * You can set alarms to ping everyone at a certain time of a day every week.
+ * Command: ++alarm
+ * Requires at least 1 argument.
+ * Arguments:
+ * 		on, off: Not available at the moment
+ * 		times: Shows list of the alarms set
+ * 		new: Adds new alarm.
+ * 			required arguments: DayOfWeek:hour:minutes AlarmName. Note that hour and minutes needs to be always 2 digits
+ * 		remove: Removes an alarm
+ * 			required arguments: alarmName
+ * 		status: Shows if the alarm is on or off
+ */
 public class ClassAlarm extends Command {
 	private final Clock clock;
 	public ClassAlarm() {
