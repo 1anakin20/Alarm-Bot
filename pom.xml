@@ -83,7 +83,7 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>com.computer_squad.Main</mainClass>
+								<mainClass>com.computer_squad.Bot</mainClass>
 							</manifest>
 						</archive>
 					</configuration>
@@ -153,7 +153,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.computer_squad.Main</mainClass>
+							<mainClass>com.computer_squad.Bot</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
