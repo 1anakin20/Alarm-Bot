@@ -8,6 +8,9 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Singleton holding the alarms
+ */
 public class Clock {
 	private static Clock instance = null;
 	private JDA jda;
@@ -23,6 +26,12 @@ public class Clock {
 	private Clock() {
 	}
 
+	/** Adds a new alarm
+	 * @param weekDay Day of the week name: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
+	 * @param hour Hour of the day in 24h format
+	 * @param minutes Minutes of the hour
+	 * @param className Name of the alarm
+	 */
 	public void newAlarm(String weekDay, int hour, int minutes, String className) {
 		Runnable ping = () -> {
 			System.out.println();
@@ -47,6 +56,10 @@ public class Clock {
 		alarms.put(className, date);
 	}
 
+	/** Removes an existing alarm
+	 * @param className Name of the alarm to remove
+	 * @throws IllegalArgumentException If the alarm name doesn't exist
+	 */
 	public void removeAlarm(String className) throws IllegalArgumentException {
 		scheduler.cancel(className);
 		alarms.remove(className);
