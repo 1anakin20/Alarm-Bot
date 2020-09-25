@@ -21,7 +21,7 @@ public class ClassAlarm extends Command {
 	@Override
 	protected void execute(CommandEvent commandEvent) {
 		if(commandEvent.getArgs().isEmpty()) {
-			commandEvent.replyWarning("There is no arguments");
+			commandEvent.replyWarning("There are no arguments");
 		} else {
 			String[] args = commandEvent.getArgs().split("\\s+");
 			switch (args[0]) {
