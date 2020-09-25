@@ -9,7 +9,17 @@ import com.cronutils.model.field.expression.Weekdays;
 
 import static com.cronutils.model.field.expression.FieldExpressionFactory.*;
 
+/**
+ * Helper for the Cron expressions
+ */
 public class CronHelper {
+	/** Creates a weekly Quartz cron expressions
+	 * @param weekDayName Day of the week: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+	 * @param hours Hour of the day in 24h format
+	 * @param minutes Minutes of the day
+	 * @return Cron expression
+	 * @throws IllegalArgumentException The day of the week is not valid
+	 */
 	public static String CronQuartzExpressionCreator(String weekDayName, int hours, int minutes) throws IllegalArgumentException {
 		try {
 			Weekdays weekday = Weekdays.valueOf(weekDayName.toUpperCase());
