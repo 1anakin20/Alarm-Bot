@@ -2,6 +2,7 @@ package com.ComputerSquad;
 
 import com.ComputerSquad.commands.ClassAlarm.ClassAlarm;
 import com.ComputerSquad.commands.ClassAlarm.Clock;
+import com.ComputerSquad.commands.echo.Echo;
 import com.ComputerSquad.commands.fun.hello.SayHello;
 import com.ComputerSquad.jda.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
@@ -18,7 +19,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class Main {
-	public static final String PREFIX = "++";
+	private static final String PREFIX = "++";
 
 	public static void main( String[] args ) {
 
@@ -92,5 +93,9 @@ public class Main {
 		Clock clock = Clock.getInstance();
 		clock.setJda(jda);
 		clock.setChannelName(config.get(2));
+	}
+
+	public static String getPrefix() {
+		return PREFIX;
 	}
 }
