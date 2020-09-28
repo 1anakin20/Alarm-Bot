@@ -6,11 +6,15 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
+/**
+ * Echo command will make the bot talk. Your command is deleted.<br>
+ * Syntax: ++echo [string to repeat]
+ */
 public class Echo extends Command {
 
 	public Echo() {
 		this.name = "echo";
-		this.help = "Repeats like a parrot";
+		this.help = "Echos a phrase to be said by the bot";
 		this.ownerCommand = true;
 	}
 
