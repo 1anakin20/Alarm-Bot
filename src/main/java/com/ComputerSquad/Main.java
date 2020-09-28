@@ -72,7 +72,8 @@ public class Main {
 
 		client.addCommands(
 				new SayHello(),
-				new ClassAlarm()
+				new ClassAlarm(),
+				new Echo()
 		);
 
 		JDA jda = null;
