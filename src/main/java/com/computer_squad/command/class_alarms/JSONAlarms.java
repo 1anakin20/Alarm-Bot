@@ -24,7 +24,6 @@ public class JSONAlarms {
 		return null;
 	}
 
-
 	public void saveAlarm(String date, String className) {
 		Map<String, String> json = readJSON();
 		json.put(date, className);
