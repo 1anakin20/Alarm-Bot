@@ -17,7 +17,7 @@ public class UserEvents extends ListenerAdapter {
 
 	@Override
 	public void onGuildMemberJoin(@NotNull GuildMemberJoinEvent event) {
-		// Automatically add a role when an user joins
+		// Automatically adds a role when an user joins
 		Member member = event.getMember();
 		if (!roleID.isEmpty()) {
 			// Roles
