@@ -17,7 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class Bot {
+public class ComputerSquadBot {
 	public static final String PREFIX = "++";
 
 	public static void main( String[] args ) {
@@ -88,7 +88,7 @@ public class Bot {
 			e.printStackTrace();
 		}
 
-		// Get the alarm clock running
+		// Configure the alarm clock
 		Clock clock = Clock.getInstance();
 		clock.setJda(jda);
 		clock.setChannelName(config.get(2));
