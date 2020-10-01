@@ -14,7 +14,6 @@ public class ClassAlarm extends Command {
 		this.name = "alarm";
 		this.arguments = "on, off";
 		this.help = "Will ping everyone when it's class time";
-
 		clock = Clock.getInstance();
 	}
 
@@ -73,7 +72,7 @@ public class ClassAlarm extends Command {
 		}
 
 		// Check if the format is correct "week day:HH:MM"
-		Pattern pattern = Pattern.compile("[a-zA-Z]+:\\d\\d:\\d\\d");
+		Pattern pattern = Pattern.compile("[a-zA-Z]+:\\d?\\d:\\d\\d");
 		Matcher matcher = pattern.matcher(args[0]);
 		if (!matcher.matches()) {
 			return "The first argument is incorrect. It should be: week day:hour:Minutes\n" +
