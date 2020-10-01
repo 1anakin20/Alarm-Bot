@@ -26,6 +26,7 @@ public class Echo extends Command {
 	@Override
 	protected void execute(CommandEvent event) {
 		Message message = event.getMessage();
+
 		try {
 			message.delete().queue();
 		} catch (InsufficientPermissionException e) {
@@ -33,8 +34,8 @@ public class Echo extends Command {
 			event.reply("Insufficient privileges. Debugging info:\n" + e);
 		}
 
-		String commandFirstPart = Main.getPrefix() + getName();
-		String reply = event.getMessage().getContentRaw().replace(commandFirstPart, "");
+		String commandFirstPart = Pattern.quote(Main.getPrefix() + getName());
+		String reply = event.getMessage().getContentRaw().replaceFirst("(?i)" + commandFirstPart, "");
 		event.reply(reply);
 	}
 }
