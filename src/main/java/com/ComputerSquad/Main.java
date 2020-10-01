@@ -2,7 +2,7 @@ package com.ComputerSquad;
 
 import com.ComputerSquad.commands.ClassAlarm.ClassAlarm;
 import com.ComputerSquad.commands.ClassAlarm.Clock;
-import com.ComputerSquad.commands.echo.Echo;
+import com.ComputerSquad.commands.fun.echo.Echo;
 import com.ComputerSquad.commands.fun.hello.SayHello;
 import com.ComputerSquad.jda.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
