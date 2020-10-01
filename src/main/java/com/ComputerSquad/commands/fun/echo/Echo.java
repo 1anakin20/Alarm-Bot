@@ -18,9 +18,9 @@ import static net.dv8tion.jda.api.Permission.ADMINISTRATOR;
 public class Echo extends Command {
 
 	public Echo() {
-		this.userPermissions = new Permission[]{ADMINISTRATOR};
 		this.name = "echo";
 		this.help = "Echos a phrase to be said by the bot";
+		this.userPermissions = new Permission[]{ADMINISTRATOR};
 	}
 
 	@Override
