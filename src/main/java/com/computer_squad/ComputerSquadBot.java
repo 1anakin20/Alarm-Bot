@@ -1,7 +1,7 @@
 package com.computer_squad;
 
-import com.computer_squad.command.class_alarms.ClassAlarm;
-import com.computer_squad.command.class_alarms.Clock;
+import com.computer_squad.command.utilities.class_alarm.ClassAlarm;
+import com.computer_squad.command.utilities.class_alarm.Clock;
 import com.computer_squad.command.fun.hello.SayHello;
 import com.computer_squad.services.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
