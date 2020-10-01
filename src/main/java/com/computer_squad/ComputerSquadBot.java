@@ -2,6 +2,7 @@ package com.computer_squad;
 
 import com.computer_squad.command.utilities.class_alarm.ClassAlarm;
 import com.computer_squad.command.utilities.class_alarm.Clock;
+import com.ComputerSquad.commands.fun.echo.Echo;
 import com.computer_squad.command.fun.hello.SayHello;
 import com.computer_squad.services.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
@@ -71,7 +72,8 @@ public class ComputerSquadBot {
 
 		client.addCommands(
 				new SayHello(),
-				new ClassAlarm()
+				new ClassAlarm(),
+				new Echo()
 		);
 
 		JDA jda = null;
@@ -92,5 +94,9 @@ public class ComputerSquadBot {
 		Clock clock = Clock.getInstance();
 		clock.setJda(jda);
 		clock.setChannelName(config.get(2));
+	}
+
+	public static String getPrefix() {
+		return PREFIX;
 	}
 }
