@@ -1,6 +1,6 @@
-package com.ComputerSquad.commands.fun.echo;
+package com.computer_squad.command.fun.echo;
 
-import com.ComputerSquad.Main;
+import com.computer_squad.ComputerSquadBot;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.Permission;
@@ -34,7 +34,7 @@ public class Echo extends Command {
 			event.reply("Insufficient privileges. Debugging info:\n" + e);
 		}
 
-		String commandFirstPart = Pattern.quote(Main.getPrefix() + getName());
+		String commandFirstPart = Pattern.quote(ComputerSquadBot.getPrefix() + getName());
 		String reply = event.getMessage().getContentRaw().replaceFirst("(?i)" + commandFirstPart, "");
 		event.reply(reply);
 	}
