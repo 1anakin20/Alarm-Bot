@@ -1,4 +1,4 @@
-package com.computer_squad.command.class_alarms;
+package com.computer_squad.command.utilities.class_alarm;
 
 import com.coreoz.wisp.Scheduler;
 import com.coreoz.wisp.schedule.cron.CronSchedule;
@@ -20,9 +20,6 @@ public class Clock {
 
 	private boolean isOn = true;
 
-	/**
-	 * Singleton class for the Class Alarm
-	 */
 	private Clock() {
 	}
 
@@ -66,7 +63,7 @@ public class Clock {
 	}
 
 	/** Get's the the Clock instance
-	 * @return A Clock instance
+	 * @return The Clock instance
 	 */
 	public static Clock getInstance() {
 		if(instance == null) {
