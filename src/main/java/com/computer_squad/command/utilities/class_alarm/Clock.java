@@ -51,7 +51,8 @@ public class Clock {
 
 		// Create a new Calendar that tracks the date
 		Calendar date = Calendar.getInstance();
-		date.set(Calendar.DAY_OF_WEEK,WeekDays.valueOf(formattedWeekDay).ordinal()+1); // Weekday enum is 1 unit behind the Calendar weekday constants
+		// Weekday enum is 1 unit behind the Calendar weekday constants
+		date.set(Calendar.DAY_OF_WEEK,WeekDays.valueOf(formattedWeekDay).ordinal()+1);
 		date.set(Calendar.HOUR_OF_DAY,hour);
 		date.set(Calendar.MINUTE,minutes);
 
