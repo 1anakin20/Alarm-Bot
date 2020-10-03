@@ -2,6 +2,7 @@
 
 # Intellij idea
 /.idea
+ComputerSquadBot.iml
 
 # Maven
 /target
