@@ -42,8 +42,8 @@ public class Clock {
 			textChannel.sendMessage("@everyone " + className).queue();
 		};
 
-		String cronExpression = CronHelper.CronQuartzExpressionCreator(weekDay, hour, minutes);
-		scheduler.schedule(className, ping, CronSchedule.parseQuartzCron(cronExpression));
+		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
+		scheduler.schedule(className, ping, CronSchedule.parseUnixCron(cronExpression));
 
 		// format the first Weekday letter into upper case
 		String formattedWeekDay;
