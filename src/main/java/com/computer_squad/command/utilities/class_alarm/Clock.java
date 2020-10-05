@@ -5,13 +5,7 @@ import com.coreoz.wisp.schedule.cron.CronSchedule;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Calendar;
-
-import java.util.List;
-import java.util.LinkedList;
-import java.util.LinkedHashMap;
+import java.util.*;
 
 /**
  * Singleton holding the alarms
@@ -61,22 +55,6 @@ public class Clock {
 		sortAlarms();
 	}
 
-	/** Sorts the alarms HashMap in chronological order
-	 */
-	private void sortAlarms() {
-		List<Map.Entry<String, Calendar>> list = new LinkedList<>(alarms.entrySet());
-
-		// Sort the list based on the Calendar value
-		list.sort( (c1,c2)-> c1.getValue().compareTo(c2.getValue()) );
-
-		// put data from sorted list to hashmap
-		HashMap<String, Calendar> sortedMap = new LinkedHashMap<>();
-		for (Map.Entry<String, Calendar> aa : list) {
-			sortedMap.put(aa.getKey(), aa.getValue());
-		}
-		alarms = sortedMap;
-	}
-
 	/** Removes an existing alarm
 	 * @param className Name of the alarm to remove
 	 * @throws IllegalArgumentException If the alarm name doesn't exist
@@ -95,6 +73,22 @@ public class Clock {
 			instance = new Clock();
 		}
 		return instance;
+	}
+
+	/** Sorts the alarms HashMap in chronological order
+	 */
+	private void sortAlarms() {
+		List<Map.Entry<String, Calendar>> list = new LinkedList<>(alarms.entrySet());
+
+		// Sort the list based on the Calendar value
+		list.sort(Map.Entry.comparingByValue());
+
+		// put data from sorted list to hashmap
+		HashMap<String, Calendar> sortedMap = new LinkedHashMap<>();
+		for (Map.Entry<String, Calendar> aa : list) {
+			sortedMap.put(aa.getKey(), aa.getValue());
+		}
+		alarms = sortedMap;
 	}
 
 	// Getter and setters
