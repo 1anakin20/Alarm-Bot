@@ -3,9 +3,12 @@ package com.computer_squad.command.utilities.class_alarm;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,7 +94,7 @@ public class ClassAlarm extends Command {
 	 */
 	private String convertStringEntry(Calendar entry){
 		// Get the week day, hour in 24 hour format and minutes in the hour
-		String formattedWeekDay = Clock.WeekDays.values()[entry.get(Calendar.DAY_OF_WEEK)-1].toString();
+		String formattedWeekDay = DayOfWeek.values()[entry.get(Calendar.DAY_OF_WEEK) - 1].getDisplayName(TextStyle.FULL, Locale.CANADA);
 		int hour = entry.get(Calendar.HOUR_OF_DAY);
 		int minutes = entry.get(Calendar.MINUTE);
 
