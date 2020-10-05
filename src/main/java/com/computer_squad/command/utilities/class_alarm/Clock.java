@@ -15,7 +15,7 @@ public class Clock {
 	private static Clock instance = null;
 	private JDA jda;
 	private String channelName = "";
-	private Scheduler scheduler = new Scheduler();
+	private final Scheduler scheduler = new Scheduler();
 	private Map<String, Calendar> alarms = new HashMap<>();
 
 	private boolean isOn = true;
