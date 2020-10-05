@@ -89,7 +89,7 @@ public class ClassAlarm extends Command {
 	/** Converts the calendar into a human readable date
 	 * @return Readable string entry
 	 */
-	private static String convertStringEntry(Calendar entry){
+	private String convertStringEntry(Calendar entry){
 		// Get the week day, hour in 24 hour format and minutes in the hour
 		String formattedWeekDay = Clock.WeekDays.values()[entry.get(Calendar.DAY_OF_WEEK)-1].toString();
 		int hour = entry.get(Calendar.HOUR_OF_DAY);
