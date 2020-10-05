@@ -5,18 +5,18 @@ import com.coreoz.wisp.schedule.cron.CronSchedule;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Singleton holding the alarms
  */
 public class Clock {
+	public enum WeekDays{Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday}
 	private static Clock instance = null;
 	private JDA jda;
 	private String channelName = "";
 	private Scheduler scheduler = new Scheduler();
-	private Map<String, String> alarms = new HashMap<>();
+	private Map<String, Calendar> alarms = new HashMap<>();
 
 	private boolean isOn = true;
 
@@ -36,21 +36,23 @@ public class Clock {
 			textChannel.sendMessage("@everyone " + className).queue();
 		};
 
-		String cronExpression = CronHelper.CronQuartzExpressionCreator(weekDay, hour, minutes);
-		scheduler.schedule(className, ping, CronSchedule.parseQuartzCron(cronExpression));
+		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
+		scheduler.schedule(className, ping, CronSchedule.parseUnixCron(cronExpression));
 
-		// Human readable date to keep track of the current alarms
-		// Integer with a leading 0 will be remove
-		String minutesString;
-		if (minutes <= 9) {
-			minutesString = "0" + minutes;
-		} else {
-			minutesString = String.valueOf(minutes);
-		}
+		// format the first Weekday letter into upper case
 		String formattedWeekDay;
 		formattedWeekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
-		String date = formattedWeekDay + " at " + hour + ":" + minutesString;
+
+		// Create a new Calendar that tracks the date
+		Calendar date = Calendar.getInstance();
+		// Weekday enum is 1 unit behind the Calendar weekday constants
+		date.set(Calendar.DAY_OF_WEEK,WeekDays.valueOf(formattedWeekDay).ordinal()+1);
+		date.set(Calendar.HOUR_OF_DAY,hour);
+		date.set(Calendar.MINUTE,minutes);
+
+		// Add the alarm and then sort all of them
 		alarms.put(className, date);
+		sortAlarms();
 	}
 
 	/** Removes an existing alarm
@@ -60,6 +62,7 @@ public class Clock {
 	public void removeAlarm(String className) throws IllegalArgumentException {
 		scheduler.cancel(className);
 		alarms.remove(className);
+		sortAlarms();
 	}
 
 	/** Get's the the Clock instance
@@ -70,6 +73,22 @@ public class Clock {
 			instance = new Clock();
 		}
 		return instance;
+	}
+
+	/** Sorts the alarms HashMap in chronological order
+	 */
+	private void sortAlarms() {
+		List<Map.Entry<String, Calendar>> list = new LinkedList<>(alarms.entrySet());
+
+		// Sort the list based on the Calendar value
+		list.sort(Map.Entry.comparingByValue());
+
+		// put data from sorted list to hashmap
+		HashMap<String, Calendar> sortedMap = new LinkedHashMap<>();
+		for (Map.Entry<String, Calendar> aa : list) {
+			sortedMap.put(aa.getKey(), aa.getValue());
+		}
+		alarms = sortedMap;
 	}
 
 	// Getter and setters
@@ -90,7 +109,7 @@ public class Clock {
 		this.channelName = channelName;
 	}
 
-	public Map<String, String> getAlarms() {
+	public Map<String, Calendar> getAlarms() {
 		return alarms;
 	}
 }

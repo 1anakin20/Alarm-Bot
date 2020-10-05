@@ -20,20 +20,16 @@ public class CronHelper {
 	 * @return Cron expression
 	 * @throws IllegalArgumentException The day of the week is not valid
 	 */
-	public static String CronQuartzExpressionCreator(String weekDayName, int hours, int minutes) throws IllegalArgumentException {
+	public static String CronUnixExpressionCreator(String weekDayName, int hours, int minutes) throws IllegalArgumentException {
 		try {
 			Weekdays weekday = Weekdays.valueOf(weekDayName.toUpperCase());
-			// Not sure if it's a bug on cronutils, the day is behind 1. Related issue: https://github.com/jmrozanec/cron-utils/issues/114
-			// Maybe their calendar starts on monday?
-			int day = weekday.getWeekday() + 1;
-			Cron cron = CronBuilder.cron(CronDefinitionBuilder.instanceDefinitionFor(CronType.QUARTZ))
-					.withYear(always())
-					.withDoM(questionMark())
+			int day = weekday.getWeekday();
+			Cron cron = CronBuilder.cron(CronDefinitionBuilder.instanceDefinitionFor(CronType.UNIX))
+					.withMinute(on(minutes))
+					.withHour(on(hours))
+					.withDoM(always())
 					.withMonth(always())
 					.withDoW(on(day))
-					.withHour(on(hours))
-					.withMinute(on(minutes))
-					.withSecond(on(0))
 					.instance();
 			return cron.asString();
 		} catch (IllegalArgumentException e) {

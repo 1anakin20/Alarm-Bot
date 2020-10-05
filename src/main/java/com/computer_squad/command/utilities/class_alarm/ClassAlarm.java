@@ -5,6 +5,7 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +28,7 @@ public class ClassAlarm extends Command {
 	private final Clock clock;
 	public ClassAlarm() {
 		this.name = "alarm";
-		this.arguments = "on, off";
+		this.arguments = "on, off, times, new, remove";
 		this.help = "Will ping everyone when it's class time";
 		clock = Clock.getInstance();
 	}
@@ -73,15 +74,36 @@ public class ClassAlarm extends Command {
 	 * @return Reply
 	 */
 	private String alarmTimes() {
-		Map<String, String> alarms = Clock.getInstance().getAlarms();
+		Map<String, Calendar> alarms = Clock.getInstance().getAlarms();
 		if (alarms.isEmpty()) {
 			return "No alarms";
 		}
 		StringBuilder formatted = new StringBuilder();
-		for(Map.Entry<String, String> entry : alarms.entrySet()) {
-			formatted.append(entry.getValue()).append(" -> ").append(entry.getKey()).append("\n");
+		for(Map.Entry<String, Calendar> entry : alarms.entrySet()) {
+			String stringEntry = convertStringEntry(entry.getValue());
+			formatted.append(stringEntry).append(" -> ").append(entry.getKey()).append("\n");
 		}
 		return formatted.toString();
+	}
+
+	/** Converts the calendar into a human readable date
+	 * @return Readable string entry
+	 */
+	private String convertStringEntry(Calendar entry){
+		// Get the week day, hour in 24 hour format and minutes in the hour
+		String formattedWeekDay = Clock.WeekDays.values()[entry.get(Calendar.DAY_OF_WEEK)-1].toString();
+		int hour = entry.get(Calendar.HOUR_OF_DAY);
+		int minutes = entry.get(Calendar.MINUTE);
+
+		// Integer with a leading 0 is removed
+		String minutesString;
+		if (minutes <= 9) {
+			minutesString = "0" + minutes;
+		} else {
+			minutesString = String.valueOf(minutes);
+		}
+
+		return formattedWeekDay + " at " + hour + ":" + minutesString;
 	}
 
 	/** Set ups a new alarm
