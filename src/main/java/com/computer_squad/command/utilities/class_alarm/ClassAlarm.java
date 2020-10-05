@@ -28,7 +28,7 @@ public class ClassAlarm extends Command {
 	private final Clock clock;
 	public ClassAlarm() {
 		this.name = "alarm";
-		this.arguments = "on, off, times, new, remove, status";
+		this.arguments = "on, off, times, new, remove";
 		this.help = "Will ping everyone when it's class time";
 		clock = Clock.getInstance();
 	}
