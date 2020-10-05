@@ -5,13 +5,13 @@ import com.coreoz.wisp.schedule.cron.CronSchedule;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 
+import java.time.DayOfWeek;
 import java.util.*;
 
 /**
  * Singleton holding the alarms
  */
 public class Clock {
-	public enum WeekDays{Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday}
 	private static Clock instance = null;
 	private JDA jda;
 	private String channelName = "";
@@ -40,13 +40,12 @@ public class Clock {
 		scheduler.schedule(className, ping, CronSchedule.parseUnixCron(cronExpression));
 
 		// format the first Weekday letter into upper case
-		String formattedWeekDay;
-		formattedWeekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
+		String formattedWeekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
 		// Create a new Calendar that tracks the date
 		Calendar date = Calendar.getInstance();
-		// Weekday enum is 1 unit behind the Calendar weekday constants
-		date.set(Calendar.DAY_OF_WEEK,WeekDays.valueOf(formattedWeekDay).ordinal()+1);
+		int dayOfWeek = DayOfWeek.valueOf(formattedWeekDay.toUpperCase()).getValue();
+		date.set(Calendar.DAY_OF_WEEK, dayOfWeek);
 		date.set(Calendar.HOUR_OF_DAY,hour);
 		date.set(Calendar.MINUTE,minutes);
 

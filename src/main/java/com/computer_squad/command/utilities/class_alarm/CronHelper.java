@@ -7,7 +7,8 @@ import com.cronutils.model.CronType;
 import com.cronutils.model.definition.CronDefinitionBuilder;
 import com.cronutils.model.field.expression.Weekdays;
 
-import static com.cronutils.model.field.expression.FieldExpressionFactory.*;
+import static com.cronutils.model.field.expression.FieldExpressionFactory.always;
+import static com.cronutils.model.field.expression.FieldExpressionFactory.on;
 
 /**
  * Helper for the Cron expressions
