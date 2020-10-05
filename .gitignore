@@ -4,6 +4,11 @@
 /.idea
 ComputerSquadBot.iml
 
+# VSCode
+.settings/
+.classpath
+.project
+
 # Maven
 /target
 
