@@ -8,6 +8,7 @@ ComputerSquadBot.iml
 .settings/
 .classpath
 .project
+.vscode/
 
 # Maven
 /target
