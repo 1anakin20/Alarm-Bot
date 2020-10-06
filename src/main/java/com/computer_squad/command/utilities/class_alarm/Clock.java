@@ -30,10 +30,22 @@ public class Clock {
 	 * @param className Name of the alarm
 	 */
 	public void newAlarm(String weekDay, int hour, int minutes, String className) {
+		// Add a #alarmNumber if it's already present
+		if (alarms.containsKey(className)) {
+			String alternativeAlarmName;
+			int i = 1;
+			do {
+				alternativeAlarmName = className + "#" + i;
+				i++;
+			} while (alarms.containsKey(alternativeAlarmName));
+			className = alternativeAlarmName;
+		}
+
+		String finalClassName = className;
 		Runnable ping = () -> {
 			System.out.println();
 			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
-			textChannel.sendMessage("@everyone " + className).queue();
+			textChannel.sendMessage("@everyone " + finalClassName).queue();
 		};
 
 		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
