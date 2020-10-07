@@ -1,5 +1,7 @@
 package com.computer_squad.command.utilities.class_alarm;
 
+import com.coreoz.wisp.Job;
+import com.coreoz.wisp.JobStatus;
 import com.coreoz.wisp.Scheduler;
 import com.coreoz.wisp.schedule.cron.CronSchedule;
 import net.dv8tion.jda.api.JDA;
@@ -72,7 +74,21 @@ public class Clock {
 	 * @throws IllegalArgumentException If the alarm name doesn't exist
 	 */
 	public void removeAlarm(String className) throws IllegalArgumentException {
-		scheduler.cancel(className);
+		Optional<Job> jobOptional = scheduler.findJob(className);
+
+		// If the job doesn't exist throw
+		if (!jobOptional.isPresent()) {
+			throw new IllegalArgumentException("Job doesn't exist");
+		}
+
+		Job job = jobOptional.get();
+
+		// A job that is already done will be considered as not existing
+		if(job.status() == JobStatus.DONE) {
+			throw new IllegalArgumentException("Job doesn't exist");
+		}
+
+		scheduler.cancel(job.name());
 		alarms.remove(className);
 		sortAlarms();
 	}
