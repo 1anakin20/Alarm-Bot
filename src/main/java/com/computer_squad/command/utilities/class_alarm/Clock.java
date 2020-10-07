@@ -1,5 +1,7 @@
 package com.computer_squad.command.utilities.class_alarm;
 
+import com.coreoz.wisp.Job;
+import com.coreoz.wisp.JobStatus;
 import com.coreoz.wisp.Scheduler;
 import com.coreoz.wisp.schedule.cron.CronSchedule;
 import net.dv8tion.jda.api.JDA;
@@ -29,11 +31,23 @@ public class Clock {
 	 * @param minutes Minutes of the hour
 	 * @param className Name of the alarm
 	 */
-	public void newAlarm(String weekDay, int hour, int minutes, String className) {
+	public String newAlarm(String weekDay, int hour, int minutes, String className) {
+		// Add a #alarmNumber if it's already present
+		if (alarms.containsKey(className)) {
+			String alternativeAlarmName;
+			int i = 1;
+			do {
+				alternativeAlarmName = className + "#" + i;
+				i++;
+			} while (alarms.containsKey(alternativeAlarmName));
+			className = alternativeAlarmName;
+		}
+
+		String finalClassName = className;
 		Runnable ping = () -> {
 			System.out.println();
 			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
-			textChannel.sendMessage("@everyone " + className).queue();
+			textChannel.sendMessage("@everyone " + finalClassName).queue();
 		};
 
 		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
@@ -52,6 +66,7 @@ public class Clock {
 		// Add the alarm and then sort all of them
 		alarms.put(className, date);
 		sortAlarms();
+		return className;
 	}
 
 	/** Removes an existing alarm
@@ -59,7 +74,21 @@ public class Clock {
 	 * @throws IllegalArgumentException If the alarm name doesn't exist
 	 */
 	public void removeAlarm(String className) throws IllegalArgumentException {
-		scheduler.cancel(className);
+		Optional<Job> jobOptional = scheduler.findJob(className);
+
+		// If the job doesn't exist throw
+		if (!jobOptional.isPresent()) {
+			throw new IllegalArgumentException("Job doesn't exist");
+		}
+
+		Job job = jobOptional.get();
+
+		// A job that is already done will be considered as not existing
+		if(job.status() == JobStatus.DONE) {
+			throw new IllegalArgumentException("Job doesn't exist");
+		}
+
+		scheduler.cancel(job.name());
 		alarms.remove(className);
 		sortAlarms();
 	}
