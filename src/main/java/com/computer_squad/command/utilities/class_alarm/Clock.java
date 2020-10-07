@@ -29,7 +29,7 @@ public class Clock {
 	 * @param minutes Minutes of the hour
 	 * @param className Name of the alarm
 	 */
-	public void newAlarm(String weekDay, int hour, int minutes, String className) {
+	public String newAlarm(String weekDay, int hour, int minutes, String className) {
 		// Add a #alarmNumber if it's already present
 		if (alarms.containsKey(className)) {
 			String alternativeAlarmName;
@@ -64,6 +64,7 @@ public class Clock {
 		// Add the alarm and then sort all of them
 		alarms.put(className, date);
 		sortAlarms();
+		return className;
 	}
 
 	/** Removes an existing alarm

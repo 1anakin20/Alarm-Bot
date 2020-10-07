@@ -132,8 +132,9 @@ public class ClassAlarm extends Command {
 //		JSONAlarms jsonAlarms = new JSONAlarms();
 //		jsonAlarms.saveAlarm(args[0].toLowerCase(), args[1]);
 		Clock clock = Clock.getInstance();
+		String savedAlarmName;
 		try {
-			clock.newAlarm(components[0], Integer.parseInt(components[1]), Integer.parseInt(components[2]), args[1]);
+			savedAlarmName = clock.newAlarm(components[0], Integer.parseInt(components[1]), Integer.parseInt(components[2]), args[1]);
 		} catch (IllegalArgumentException e) {
 			return "There is something wrong with your date.\n" +
 					"Check for spelling mistakes,\n" +
@@ -141,7 +142,7 @@ public class ClassAlarm extends Command {
 					"another alarm doesn't have the same name";
 		}
 
-		return "Alarm saved";
+		return "Alarm " + savedAlarmName + " saved";
 	}
 
 	/** Removes the desired alarm
