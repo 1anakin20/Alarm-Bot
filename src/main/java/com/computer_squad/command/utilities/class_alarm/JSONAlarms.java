@@ -31,6 +31,12 @@ public class JSONAlarms {
 		writeToFile(json);
 	}
 
+	public void removeAlarm(String name) {
+		Map<String, Calendar> alarms = readAlarms();
+		alarms.remove(name);
+		writeToFile(alarms);
+	}
+
 	public void writeToFile(Map<String, Calendar> dict) {
 		try (FileWriter writer = new FileWriter(alarmPath)) {
 			gson.toJson(dict, writer);

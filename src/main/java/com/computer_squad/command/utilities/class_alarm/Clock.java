@@ -96,8 +96,11 @@ public class Clock {
 			throw new IllegalArgumentException("Job doesn't exist");
 		}
 
-		scheduler.cancel(job.name());
+		String alarmName = job.name();
+		scheduler.cancel(alarmName);
 		alarms.remove(className);
+		JSONAlarms jsonAlarms = new JSONAlarms();
+		jsonAlarms.removeAlarm(alarmName);
 		sortAlarms();
 	}
 
