@@ -23,6 +23,16 @@ public class Clock {
 	private boolean isOn = true;
 
 	private Clock() {
+		// Reload alarms
+		JSONAlarms jsonAlarms = new JSONAlarms();
+		Map<String, Calendar> saved = jsonAlarms.readAlarms();
+
+		saved.forEach((key, value) -> {
+			String dayOfWeek = value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.CANADA);
+			int hour = value.get(Calendar.HOUR_OF_DAY);
+			int minutes = value.get(Calendar.MINUTE);
+			newAlarm(dayOfWeek, hour, minutes, key);
+		});
 	}
 
 	/** Adds a new alarm
@@ -43,16 +53,6 @@ public class Clock {
 			className = alternativeAlarmName;
 		}
 
-		String finalClassName = className;
-		Runnable ping = () -> {
-			System.out.println();
-			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
-			textChannel.sendMessage("@everyone " + finalClassName).queue();
-		};
-
-		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
-		scheduler.schedule(className, ping, CronSchedule.parseUnixCron(cronExpression));
-
 		// format the first Weekday letter into upper case
 		String formattedWeekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
 
@@ -63,9 +63,17 @@ public class Clock {
 		date.set(Calendar.HOUR_OF_DAY,hour);
 		date.set(Calendar.MINUTE,minutes);
 
+		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
+
 		// Add the alarm and then sort all of them
 		alarms.put(className, date);
+		scheduleAlarm(className, cronExpression);
 		sortAlarms();
+
+		// Save the alarm
+		JSONAlarms jsonAlarms = new JSONAlarms();
+		jsonAlarms.saveAlarm(className, date);
+
 		return className;
 	}
 
@@ -76,7 +84,7 @@ public class Clock {
 	public void removeAlarm(String className) throws IllegalArgumentException {
 		Optional<Job> jobOptional = scheduler.findJob(className);
 
-		// If the job doesn't exist throw
+		// Make sure the job exists
 		if (!jobOptional.isPresent()) {
 			throw new IllegalArgumentException("Job doesn't exist");
 		}
@@ -101,6 +109,16 @@ public class Clock {
 			instance = new Clock();
 		}
 		return instance;
+	}
+
+	private void scheduleAlarm(String name, String unixCronExpression) {
+		Runnable ping = () -> {
+			System.out.println();
+			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
+			textChannel.sendMessage("@everyone " + name).queue();
+		};
+
+		scheduler.schedule(name, ping, CronSchedule.parseUnixCron(unixCronExpression));
 	}
 
 	/** Sorts the alarms HashMap in chronological order
