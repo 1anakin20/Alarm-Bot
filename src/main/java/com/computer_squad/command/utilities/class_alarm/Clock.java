@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.time.DayOfWeek;
-import java.time.format.TextStyle;
 import java.util.*;
 
 /**
@@ -25,7 +24,6 @@ public class Clock {
 
 	private Clock() {
 		// Reload alarms
-		// Save the alarm
 		JSONAlarms jsonAlarms = new JSONAlarms();
 		Map<String, Calendar> saved = jsonAlarms.readAlarms();
 
@@ -33,11 +31,7 @@ public class Clock {
 			String dayOfWeek = value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.CANADA);
 			int hour = value.get(Calendar.HOUR_OF_DAY);
 			int minutes = value.get(Calendar.MINUTE);
-//			String cronExpression = CronHelper.CronUnixExpressionCreator(dayOfWeek, hour, minutes);
-//			scheduleAlarm(key, cronExpression);
-//			alarms.put(key, value);
 			newAlarm(dayOfWeek, hour, minutes, key);
-//			sortAlarms();
 		});
 	}
 
@@ -58,16 +52,6 @@ public class Clock {
 			} while (alarms.containsKey(alternativeAlarmName));
 			className = alternativeAlarmName;
 		}
-
-//		String finalClassName = className;
-//		Runnable ping = () -> {
-//			System.out.println();
-//			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
-//			textChannel.sendMessage("@everyone " + finalClassName).queue();
-//		};
-
-//		String cronExpression = CronHelper.CronUnixExpressionCreator(weekDay, hour, minutes);
-//		scheduler.schedule(className, ping, CronSchedule.parseUnixCron(cronExpression));
 
 		// format the first Weekday letter into upper case
 		String formattedWeekDay = weekDay.substring(0,1).toUpperCase() + weekDay.substring(1).toLowerCase();
@@ -100,7 +84,7 @@ public class Clock {
 	public void removeAlarm(String className) throws IllegalArgumentException {
 		Optional<Job> jobOptional = scheduler.findJob(className);
 
-		// If the job doesn't exist throw
+		// Make sure the job exists
 		if (!jobOptional.isPresent()) {
 			throw new IllegalArgumentException("Job doesn't exist");
 		}
