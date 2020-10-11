@@ -33,10 +33,11 @@ public class Clock {
 			String dayOfWeek = value.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.CANADA);
 			int hour = value.get(Calendar.HOUR_OF_DAY);
 			int minutes = value.get(Calendar.MINUTE);
-			String cronExpression = CronHelper.CronUnixExpressionCreator(dayOfWeek, hour, minutes);
-			scheduleAlarm(key, cronExpression);
-			alarms.put(key, value);
-			sortAlarms();
+//			String cronExpression = CronHelper.CronUnixExpressionCreator(dayOfWeek, hour, minutes);
+//			scheduleAlarm(key, cronExpression);
+//			alarms.put(key, value);
+			newAlarm(dayOfWeek, hour, minutes, key);
+//			sortAlarms();
 		});
 	}
 
