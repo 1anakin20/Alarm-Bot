@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * User events Events triggered by {@link ListenerAdapter}
  */
 public class UserEvents extends ListenerAdapter {
-	private String roleID;
+	private final String roleID;
 	public UserEvents(String roleID) {
 		this.roleID = roleID;
 	}
