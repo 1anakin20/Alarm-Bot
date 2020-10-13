@@ -1,6 +1,7 @@
 package com.computer_squad;
 
 import com.computer_squad.command.fun.echo.Echo;
+import com.computer_squad.command.fun.flip.Flip;
 import com.computer_squad.command.fun.hello.SayHello;
 import com.computer_squad.command.utilities.class_alarm.ClassAlarm;
 import com.computer_squad.command.utilities.class_alarm.Clock;
@@ -73,7 +74,8 @@ public class ComputerSquadBot {
 		client.addCommands(
 				new SayHello(),
 				new ClassAlarm(),
-				new Echo()
+				new Echo(),
+				new Flip()
 		);
 
 		JDA jda = null;
