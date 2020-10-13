@@ -19,6 +19,7 @@ public class Flip extends Command {
 		String[] options = args.split(":");
 		if (options.length != 2) {
 			event.reply("There aren't 2 options. option1:option2");
+			return;
 		}
 
 		Random random = new Random();
