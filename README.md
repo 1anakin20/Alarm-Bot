@@ -1,6 +1,8 @@
 # Computer Squad Bot
 Discord bot for the computer squad server
 
+Please read [Contributing](CONTRIBUTING.md)
+
 # Build
 Build with maven
 ```
