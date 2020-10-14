@@ -14,7 +14,6 @@ ComputerSquadBot.iml
 /target
 
 # The configuration should never be in source control
-user/configuration
-user/alarms.json
+user/
 
 !.gitkeep
