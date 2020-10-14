@@ -1,6 +1,8 @@
 # Computer Squad Bot
 Discord bot for the computer squad server
 
+Please read [Contributing](CONTRIBUTING.md)
+
 # Build
 Build with maven
 ```
@@ -17,9 +19,6 @@ BOT Token
 Owner ID
 channel to send the alarm ping in
 ```
-
-# Contributing
-Feel free to contribute to the bot.
 
 # Built with
 Discord API wrapper for java JDA: https://github.com/DV8FromTheWorld/JDA 
