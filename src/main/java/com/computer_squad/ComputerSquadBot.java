@@ -62,7 +62,7 @@ public class ComputerSquadBot {
 		// Configure the alarm clock
 		Clock clock = Clock.getInstance();
 		clock.setJda(jda);
-		clock.setChannelName(configuration.getChannelName());
+		clock.setChannelID(configuration.getChannelID());
 	}
 
 	public static String getPrefix() {
