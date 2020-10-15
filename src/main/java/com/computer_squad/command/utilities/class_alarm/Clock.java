@@ -16,7 +16,7 @@ import java.util.*;
 public class Clock {
 	private static Clock instance = null;
 	private JDA jda;
-	private String channelName = "";
+	private String channelID = "";
 	private final Scheduler scheduler = new Scheduler();
 	private Map<String, Calendar> alarms = new HashMap<>();
 
@@ -117,7 +117,7 @@ public class Clock {
 	private void scheduleAlarm(String name, String unixCronExpression) {
 		Runnable ping = () -> {
 			System.out.println();
-			TextChannel textChannel = jda.getTextChannelById(channelName);
+			TextChannel textChannel = jda.getTextChannelById(channelID);
 			assert textChannel != null;
 			textChannel.sendMessage("@everyone " + name).queue();
 		};
@@ -155,8 +155,8 @@ public class Clock {
 		this.jda = jda;
 	}
 
-	public void setChannelName(String channelName) {
-		this.channelName = channelName;
+	public void setChannelID(String channelID) {
+		this.channelID = channelID;
 	}
 
 	public Map<String, Calendar> getAlarms() {

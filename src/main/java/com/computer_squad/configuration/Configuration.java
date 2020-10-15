@@ -6,13 +6,13 @@ import java.util.Properties;
 public class Configuration {
 	private final String botToken;
 	private final String roleId;
-	private final String channelName;
+	private final String channelID;
 	private final String ownerId;
 
 	public Configuration(Properties properties) {
 		botToken = parseBotToken(properties.getProperty("botToken"));
 		roleId = properties.getProperty("roleId");
-		channelName = properties.getProperty("channelName");
+		channelID = properties.getProperty("channelID");
 		ownerId = properties.getProperty("ownerId");
 	}
 
@@ -24,8 +24,8 @@ public class Configuration {
 		return roleId;
 	}
 
-	public String getChannelName() {
-		return channelName;
+	public String getChannelID() {
+		return channelID;
 	}
 
 	public String getOwnerId() {
