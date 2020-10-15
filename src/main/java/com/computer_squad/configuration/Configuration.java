@@ -11,9 +11,9 @@ public class Configuration {
 
 	public Configuration(Properties properties) {
 		botToken = parseBotToken(properties.getProperty("botToken"));
-		roleId = properties.getProperty("roleId");
+		roleId = properties.getProperty("roleID");
 		channelID = properties.getProperty("channelID");
-		ownerId = properties.getProperty("ownerId");
+		ownerId = properties.getProperty("ownerID");
 	}
 
 	public String getBotToken() {
