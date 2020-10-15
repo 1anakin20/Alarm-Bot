@@ -117,7 +117,8 @@ public class Clock {
 	private void scheduleAlarm(String name, String unixCronExpression) {
 		Runnable ping = () -> {
 			System.out.println();
-			TextChannel textChannel = jda.getTextChannelsByName(channelName, true).get(0);
+			TextChannel textChannel = jda.getTextChannelById(channelName);
+			assert textChannel != null;
 			textChannel.sendMessage("@everyone " + name).queue();
 		};
 
