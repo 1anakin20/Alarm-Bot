@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,12 +14,20 @@ public class JSONAlarms {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	public Map<String, Calendar> readAlarms() {
-		try (Reader reader = new FileReader(alarmPath)) {
-			return gson.fromJson(reader, new TypeToken<HashMap<String, Calendar>>() {}.getType());
+	    Reader reader = null;
+		File file = new File(alarmPath);
+		try {
+			if (file.createNewFile()) {
+				FileWriter fileWriter = new FileWriter(file);
+				// Add empty braces to avoid nullPointerException from gson.fromJson(Line 30)
+				fileWriter.write("{}");
+				fileWriter.close();
+			}
+			reader = new FileReader(file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return gson.fromJson(reader, new TypeToken<HashMap<String, Calendar>>() {}.getType());
 	}
 
 	public void saveAlarm(String name, Calendar date) {
