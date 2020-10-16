@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/1anakin20/ComputerSquadBot.svg?branch=main)](https://travis-ci.com/1anakin20/ComputerSquadBot)
 # Computer Squad Bot
 Discord bot for the computer squad server
 
