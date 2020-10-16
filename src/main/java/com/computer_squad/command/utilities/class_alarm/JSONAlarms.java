@@ -27,6 +27,7 @@ public class JSONAlarms {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		assert reader != null;
 		return gson.fromJson(reader, new TypeToken<HashMap<String, Calendar>>() {}.getType());
 	}
 
