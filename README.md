@@ -11,19 +11,14 @@ mvn clean package
 ```
 
 # Configuration
-You should make a folder named "user"
+You should make a folder named "user" 
 if it doesn't exist already in the same directory as the jar file.
-Inside (make it if it doesn't exist already) a file named "config.properties".
-Copy paste this in the file and fill the values:
+Inside (make it if it doesn't exist already) a file named "configuration".
+Replace the values in the lines with the information:
 ```
-# Token for the bot account
-botToken:
-# Channel ID to alarm send the ping in
-channelID: 
-# ID of the role to add automatically when a member joins. Leave blank for no role.
-roleID:
-# ID for the owner of the bot
-ownerID:
+BOT Token
+Owner ID
+channel to send the alarm ping in
 ```
 
 # Built with
