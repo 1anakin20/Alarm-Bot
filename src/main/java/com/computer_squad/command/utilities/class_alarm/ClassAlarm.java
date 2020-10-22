@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
  * Arguments:
  * 		on, off: Not available at the moment
  * 		times: Shows list of the alarms set
- * 		new: Adds new alarm.
+ * 		add: Adds new alarm.
  * 			required arguments: DayOfWeek:hour:minutes AlarmName. Note that hour and minutes needs to be always 2 digits
  * 		remove: Removes an alarm
  * 			required arguments: alarmName
@@ -31,7 +31,7 @@ public class ClassAlarm extends Command {
 	private final Clock clock;
 	public ClassAlarm() {
 		this.name = "alarm";
-		this.arguments = "on, off, times, new, remove";
+		this.arguments = "on, off, times, add, remove";
 		this.help = "Will ping everyone when it's class time";
 		clock = Clock.getInstance();
 	}
@@ -56,7 +56,7 @@ public class ClassAlarm extends Command {
 				case "times":
 					commandEvent.reply(alarmTimes());
 					break;
-				case "new":
+				case "add":
 					commandEvent.reply(setAlarm(Arrays.copyOfRange(args, 1, args.length)));
 					break;
 				case "remove":
