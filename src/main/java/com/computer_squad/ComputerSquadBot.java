@@ -1,13 +1,10 @@
 package com.computer_squad;
 
-import com.computer_squad.command.fun.echo.Echo;
-import com.computer_squad.command.fun.flip.Flip;
-import com.computer_squad.command.fun.hello.SayHello;
-import com.computer_squad.command.utilities.class_alarm.ClassAlarm;
-import com.computer_squad.command.utilities.class_alarm.Clock;
+import com.computer_squad.command.utility.alarm.ClassAlarm;
+import com.computer_squad.command.utility.alarm.Clock;
+import com.computer_squad.command.utility.status.Status;
 import com.computer_squad.configuration.Configuration;
 import com.computer_squad.configuration.ConfigurationLoader;
-import com.computer_squad.services.UserEvents;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.JDA;
@@ -39,10 +36,8 @@ public class ComputerSquadBot {
 				.setPrefix(PREFIX);
 
 		client.addCommands(
-				new SayHello(),
-				new ClassAlarm(),
-				new Echo(),
-				new Flip()
+				new Status(),
+				new ClassAlarm()
 		);
 
 		JDA jda = null;
@@ -50,7 +45,7 @@ public class ComputerSquadBot {
 			jda = JDABuilder.createDefault(configuration.getBotToken())
 					.enableIntents(GatewayIntent.GUILD_MEMBERS)
 					.build();
-			jda.addEventListener(eventWaiter, client.build(), new UserEvents(configuration.getRoleId()));
+			jda.addEventListener(eventWaiter, client.build());
 			jda.awaitReady();
 		} catch (LoginException e) {
 			System.out.println("Error, couldn't login. Please verify the token");
