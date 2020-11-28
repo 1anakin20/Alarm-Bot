@@ -1,4 +1,4 @@
-package com.computer_squad.command.utilities.class_alarm;
+package com.computer_squad.command.utility.alarm;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;

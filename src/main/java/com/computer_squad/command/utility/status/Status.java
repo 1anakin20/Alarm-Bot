@@ -1,4 +1,4 @@
-package com.computer_squad.command.fun.hello;
+package com.computer_squad.command.utility.status;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
@@ -6,15 +6,15 @@ import com.jagrosh.jdautilities.command.CommandEvent;
 /**
  * Command to test if the bot is working
  */
-public class SayHello extends Command {
+public class Status extends Command {
 
-	public SayHello() {
-		this.name = "hello";
-		this.help = "It says hello to you :)";
+	public Status() {
+		this.name = "status";
+		this.help = "Replies if bot is online";
 	}
 
 	@Override
 	protected void execute(CommandEvent commandEvent) {
-		commandEvent.reply("Hello There!");
+		commandEvent.reply("Online");
 	}
 }

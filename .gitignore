@@ -2,7 +2,6 @@
 
 # Intellij idea
 /.idea
-ComputerSquadBot.iml
 
 # VSCode
 .settings/

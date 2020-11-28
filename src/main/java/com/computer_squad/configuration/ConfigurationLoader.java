@@ -7,7 +7,7 @@ import java.util.Properties;
 public class ConfigurationLoader {
 	private static final String CONFIGURATION_PATH = "user/config.properties";
 
-	public Configuration loadConfiguration() {
+	public static Configuration loadConfiguration() {
 		Properties properties = new Properties();
 
 		try {
