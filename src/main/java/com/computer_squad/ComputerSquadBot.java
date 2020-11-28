@@ -17,8 +17,7 @@ public class ComputerSquadBot {
 	public static final String PREFIX = "++";
 
 	public static void main(String[] args) {
-		ConfigurationLoader configurationLoader = new ConfigurationLoader();
-		Configuration configuration = configurationLoader.loadConfiguration();
+		Configuration configuration = ConfigurationLoader.loadConfiguration();
 
 		EventWaiter eventWaiter = new EventWaiter();
 
