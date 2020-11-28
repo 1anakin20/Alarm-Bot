@@ -59,8 +59,4 @@ public class ComputerSquadBot {
 		clock.setJda(jda);
 		clock.setChannelID(configuration.getChannelID());
 	}
-
-	public static String getPrefix() {
-		return PREFIX;
-	}
 }
