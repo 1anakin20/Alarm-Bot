@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import javax.security.auth.login.LoginException;
 
-public class ComputerSquadBot {
+public class AlarmBot {
 	public static final String PREFIX = "++";
 
 	public static void main(String[] args) {
