@@ -3,25 +3,33 @@ package com.computer_squad.configuration;
 import java.io.Console;
 import java.util.Properties;
 
+/**
+ * The configuration file should be inside a folder called "user".
+ * Write each value in a key=value pair.
+ * <br>
+ * Keys:
+ * <dl>
+ *     <dt>botToken</dt>
+ *     <dd>The token of the bot. You can also write "runtime" to be asked for it at the bot startup</dd>
+ *     <dt>channelID</dt>
+ *     <dd>Channel ID to send the alarm ping in</dd>
+ *     <dt>ownerID</dt>
+ *     <dd>ID of the owner of the bot</dd>
+ * </dl>
+ */
 public class Configuration {
 	private final String botToken;
-	private final String roleId;
 	private final String channelID;
 	private final String ownerId;
 
 	public Configuration(Properties properties) {
 		botToken = parseBotToken(properties.getProperty("botToken"));
-		roleId = properties.getProperty("roleID");
 		channelID = properties.getProperty("channelID");
 		ownerId = properties.getProperty("ownerID");
 	}
 
 	public String getBotToken() {
 		return botToken;
-	}
-
-	public String getRoleId() {
-		return roleId;
 	}
 
 	public String getChannelID() {

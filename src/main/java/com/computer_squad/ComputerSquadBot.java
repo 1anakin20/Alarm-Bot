@@ -16,15 +16,7 @@ import javax.security.auth.login.LoginException;
 public class ComputerSquadBot {
 	public static final String PREFIX = "++";
 
-	public static void main( String[] args ) {
-
-		/*
-		  The configuration file should be inside a folder called "user"
-		  With a new line for each piece of information needed
-		  Order:
-		  Bot token; you can also write runtime to be asked for it when running the bot
-		  ID of the owner of the bot
-		 */
+	public static void main(String[] args) {
 		ConfigurationLoader configurationLoader = new ConfigurationLoader();
 		Configuration configuration = configurationLoader.loadConfiguration();
 
